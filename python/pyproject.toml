@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tool-call-guard"
+version = "0.1.0"
+description = "Deny-by-default policy gate for AI agent tool calls: allowlists, argument validation, rate caps, human-approval hooks, dry-run mode, and an audit trail. Framework-agnostic, zero dependencies."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Binaya Dhakal", email = "binaydhakal35@gmail.com" }]
+requires-python = ">=3.9"
+keywords = [
+  "ai",
+  "agents",
+  "security",
+  "tool-calling",
+  "allowlist",
+  "policy",
+  "guardrails",
+  "llm",
+  "mcp",
+  "audit",
+  "rate-limit",
+  "human-in-the-loop",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/binaydhakal/tool-call-guard"
+Repository = "https://github.com/binaydhakal/tool-call-guard"
+Issues = "https://github.com/binaydhakal/tool-call-guard/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tool_call_guard"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

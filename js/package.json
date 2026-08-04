@@ -1,0 +1,65 @@
+{
+  "name": "tool-call-guard",
+  "version": "0.1.0",
+  "description": "Deny-by-default policy gate for AI agent tool calls: allowlists, argument validation, rate caps, human-approval hooks, dry-run mode, and an audit trail. Framework-agnostic, zero dependencies.",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./jsonl": {
+      "types": "./dist/esm/jsonl.d.ts",
+      "import": "./dist/esm/jsonl.js",
+      "require": "./dist/cjs/jsonl.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', JSON.stringify({ type: 'commonjs' }))\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "security",
+    "tool-calling",
+    "allowlist",
+    "policy",
+    "guardrails",
+    "llm",
+    "mcp",
+    "audit",
+    "rate-limit",
+    "human-in-the-loop"
+  ],
+  "author": "Binaya Dhakal <binaydhakal35@gmail.com> (https://www.dhakalbinaya.com.np)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binaydhakal/tool-call-guard.git",
+    "directory": "js"
+  },
+  "homepage": "https://github.com/binaydhakal/tool-call-guard#readme",
+  "bugs": "https://github.com/binaydhakal/tool-call-guard/issues",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.10",
+    "zod": "^3.25.0"
+  }
+}
