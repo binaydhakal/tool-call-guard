@@ -1,5 +1,6 @@
 # @yanib/tool-call-guard
 
+[![CI](https://github.com/binaydhakal/tool-call-guard/actions/workflows/ci.yml/badge.svg)](https://github.com/binaydhakal/tool-call-guard/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@yanib/tool-call-guard)](https://www.npmjs.com/package/@yanib/tool-call-guard)
 [![license](https://img.shields.io/npm/l/@yanib/tool-call-guard)](./LICENSE)
 

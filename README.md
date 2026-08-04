@@ -2,6 +2,7 @@
 
 **Deny-by-default policy gate for AI agent tool calls — one policy model, enforced in JavaScript and Python.**
 
+[![CI](https://github.com/binaydhakal/tool-call-guard/actions/workflows/ci.yml/badge.svg)](https://github.com/binaydhakal/tool-call-guard/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@yanib/tool-call-guard?label=npm)](https://www.npmjs.com/package/@yanib/tool-call-guard)
 [![PyPI](https://img.shields.io/pypi/v/tool-call-guard?label=pypi)](https://pypi.org/project/tool-call-guard/)
 [![license](https://img.shields.io/badge/license-MIT-b8973d)](./LICENSE)
