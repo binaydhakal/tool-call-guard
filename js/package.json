@@ -1,5 +1,5 @@
 {
-  "name": "tool-call-guard",
+  "name": "@yanib/tool-call-guard",
   "version": "0.1.0",
   "description": "Deny-by-default policy gate for AI agent tool calls: allowlists, argument validation, rate caps, human-approval hooks, dry-run mode, and an audit trail. Framework-agnostic, zero dependencies.",
   "type": "module",
@@ -61,5 +61,8 @@
     "typescript": "^5.6.3",
     "vitest": "^4.1.10",
     "zod": "^3.25.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

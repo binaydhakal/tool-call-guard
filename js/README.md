@@ -1,12 +1,12 @@
-# tool-call-guard
+# @yanib/tool-call-guard
 
-[![npm](https://img.shields.io/npm/v/tool-call-guard)](https://www.npmjs.com/package/tool-call-guard)
-[![license](https://img.shields.io/npm/l/tool-call-guard)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@yanib/tool-call-guard)](https://www.npmjs.com/package/@yanib/tool-call-guard)
+[![license](https://img.shields.io/npm/l/@yanib/tool-call-guard)](./LICENSE)
 
 **Deny-by-default policy gate for AI agent tool calls.** The JS/TS half of [tool-call-guard](https://github.com/binaydhakal/tool-call-guard) — same JSON policy model and audit schema as the [PyPI package](https://pypi.org/project/tool-call-guard/), so one security review covers both stacks.
 
 ```ts
-import { createGuard, ToolCallDeniedError } from "tool-call-guard";
+import { createGuard, ToolCallDeniedError } from "@yanib/tool-call-guard";
 import { z } from "zod";
 
 const guard = createGuard(
@@ -35,10 +35,10 @@ const tools = guard.wrapTools({
 ## Install
 
 ```sh
-npm i tool-call-guard
+npm i @yanib/tool-call-guard
 ```
 
-Zero dependencies, ESM + CJS, Node ≥18 (core also runs in edge/workers — the JSONL sink lives in a separate `tool-call-guard/jsonl` entry so `node:fs` never touches the main bundle). Validators accept zod-style schemas (anything with `safeParse`) or plain predicates returning `true`/`false`/reason-string.
+Zero dependencies, ESM + CJS, Node ≥18 (core also runs in edge/workers — the JSONL sink lives in a separate `@yanib/tool-call-guard/jsonl` entry so `node:fs` never touches the main bundle). Validators accept zod-style schemas (anything with `safeParse`) or plain predicates returning `true`/`false`/reason-string.
 
 ## What the policy gives you
 

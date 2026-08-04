@@ -2,7 +2,7 @@
 
 **Deny-by-default policy gate for AI agent tool calls — one policy model, enforced in JavaScript and Python.**
 
-[![npm](https://img.shields.io/npm/v/tool-call-guard?label=npm)](https://www.npmjs.com/package/tool-call-guard)
+[![npm](https://img.shields.io/npm/v/@yanib/tool-call-guard?label=npm)](https://www.npmjs.com/package/@yanib/tool-call-guard)
 [![PyPI](https://img.shields.io/pypi/v/tool-call-guard?label=pypi)](https://pypi.org/project/tool-call-guard/)
 [![license](https://img.shields.io/badge/license-MIT-b8973d)](./LICENSE)
 
@@ -30,7 +30,7 @@ Audit events share one schema across both implementations (JSONL sinks included)
 
 | | JavaScript / TypeScript | Python |
 |---|---|---|
-| Package | [`tool-call-guard` on npm](https://www.npmjs.com/package/tool-call-guard) | [`tool-call-guard` on PyPI](https://pypi.org/project/tool-call-guard/) |
+| Package | [`@yanib/tool-call-guard` on npm](https://www.npmjs.com/package/@yanib/tool-call-guard) | [`tool-call-guard` on PyPI](https://pypi.org/project/tool-call-guard/) |
 | Source | [`js/`](./js) | [`python/`](./python) |
 | Validation | zod-style `safeParse` or predicates | pydantic-style `model_validate` or callables |
 | Wrappers | `wrap`, `wrapTools` (AI SDK `{ execute }` shape) | `wrap`, `@guard.protect`, `wrap_tools` |
