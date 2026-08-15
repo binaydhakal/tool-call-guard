@@ -25,7 +25,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 _WINDOW_SECONDS = 60.0
 

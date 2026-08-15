@@ -25,6 +25,10 @@ jobs:
 
   python:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.13"]
     defaults:
       run:
         working-directory: python
@@ -32,6 +36,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
-      - run: python -m pip install -e . pytest
+          python-version: ${{ matrix.python-version }}
+      - if: matrix.python-version == '3.9'
+        run: python -m pip install -e . pytest
+      - if: matrix.python-version != '3.9'
+        run: python -m pip install -e ".[integrations]" pytest
       - run: pytest -q
