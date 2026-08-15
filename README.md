@@ -62,6 +62,10 @@ The core packages remain dependency-free. Install only the SDK adapter you use; 
 
 This is runtime *enforcement* — the layer OWASP's recommendations describe. It is complementary to MCP *scanners* (which detect malicious tool definitions before you install them) and to model-level guardrails (which filter prompts and outputs). Defense in depth wants all three; this repo is the middle layer, deliberately small enough to audit.
 
+## Releases
+
+npm and PyPI release candidates are built from the same commit, tested, checked, and stored as immutable GitHub Actions artifacts before publication. See the [release guide](./RELEASING.md) for the versioning and verification procedure.
+
 ## License
 
 MIT © [Binaya Dhakal](https://www.dhakalbinaya.com.np)

@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/binaydhakal/tool-call-guard/actions/workflows/ci.yml/badge.svg)](https://github.com/binaydhakal/tool-call-guard/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/tool-call-guard)](https://pypi.org/project/tool-call-guard/)
-[![license](https://img.shields.io/pypi/l/tool-call-guard)](../LICENSE)
+[![license](https://img.shields.io/pypi/l/tool-call-guard)](https://github.com/binaydhakal/tool-call-guard/blob/main/LICENSE)
 
 **Deny-by-default policy gate for AI agent tool calls.** The Python half of [tool-call-guard](https://github.com/binaydhakal/tool-call-guard) — same JSON policy model and audit schema as the [npm package](https://www.npmjs.com/package/@yanib/tool-call-guard), so one security review covers both stacks.
 
