@@ -39,7 +39,71 @@ const tools = guard.wrapTools({
 npm i @yanib/tool-call-guard
 ```
 
-Zero dependencies, ESM + CJS, Node ≥18 (core also runs in edge/workers — the JSONL sink lives in a separate `@yanib/tool-call-guard/jsonl` entry so `node:fs` never touches the main bundle). Validators accept zod-style schemas (anything with `safeParse`) or plain predicates returning `true`/`false`/reason-string.
+The core has zero dependencies and ships as ESM + CJS for Node ≥18 (it also runs in edge/workers — the JSONL sink lives in a separate `@yanib/tool-call-guard/jsonl` entry so `node:fs` never touches the main bundle). Provider SDKs are optional peer dependencies. Validators accept zod-style schemas (anything with `safeParse`) or plain predicates returning `true`/`false`/reason-string.
+
+## Provider adapters
+
+### OpenAI Agents SDK
+
+```sh
+npm i @yanib/tool-call-guard @openai/agents
+```
+
+Attach the policy adapter to an OpenAI function tool's `inputGuardrails`. A denied call never reaches `execute`; by default the adapter returns a safe rejection message to the model.
+
+```ts
+import { tool } from "@openai/agents";
+import { z } from "zod";
+import { createGuard } from "@yanib/tool-call-guard";
+import { createOpenAIToolInputGuardrail } from "@yanib/tool-call-guard/openai";
+
+const guard = createGuard({
+  tools: {
+    search: {},
+    shell: { action: "deny" },
+  },
+});
+
+const search = tool({
+  name: "search",
+  description: "Search internal documents.",
+  parameters: z.object({ query: z.string() }),
+  inputGuardrails: [createOpenAIToolInputGuardrail(guard)],
+  execute: async ({ query }) => searchDocuments(query),
+});
+```
+
+Set `deniedBehavior: "throwException"` to trip the run instead of returning model-visible rejection content. The default rejection text is generic; use the `message` option when the model should receive a curated reason. Invalid JSON arguments fail closed and are never copied into the adapter response.
+
+### Anthropic Claude Agent SDK
+
+```sh
+npm i @yanib/tool-call-guard @anthropic-ai/claude-agent-sdk
+```
+
+Register the adapter as a `PreToolUse` hook:
+
+```ts
+import type { Options } from "@anthropic-ai/claude-agent-sdk";
+import { createGuard } from "@yanib/tool-call-guard";
+import { createAnthropicHookMatcher } from "@yanib/tool-call-guard/anthropic";
+
+const guard = createGuard({
+  tools: {
+    Read: {},
+    "mcp__docs__*": {},
+    Bash: { action: "deny" },
+  },
+});
+
+const options: Options = {
+  hooks: {
+    PreToolUse: [createAnthropicHookMatcher(guard)],
+  },
+};
+```
+
+Allowed calls return no permission decision, so the SDK's native permission checks still run. Denied calls return a structured `PreToolUse` denial with generic text unless you set the `message` option. With `mode: "dry-run"`, the hook records `wouldAllow` without changing the SDK's permission flow.
 
 ## What the policy gives you
 

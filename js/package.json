@@ -1,6 +1,6 @@
 {
   "name": "@yanib/tool-call-guard",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deny-by-default policy gate for AI agent tool calls: allowlists, argument validation, rate caps, human-approval hooks, dry-run mode, and an audit trail. Framework-agnostic, zero dependencies.",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -16,6 +16,16 @@
       "types": "./dist/esm/jsonl.d.ts",
       "import": "./dist/esm/jsonl.js",
       "require": "./dist/cjs/jsonl.js"
+    },
+    "./openai": {
+      "types": "./dist/esm/openai.d.ts",
+      "import": "./dist/esm/openai.js",
+      "require": "./dist/cjs/openai.js"
+    },
+    "./anthropic": {
+      "types": "./dist/esm/anthropic.d.ts",
+      "import": "./dist/esm/anthropic.js",
+      "require": "./dist/cjs/anthropic.js"
     }
   },
   "files": [
@@ -56,11 +66,25 @@
   "engines": {
     "node": ">=18"
   },
+  "peerDependencies": {
+    "@anthropic-ai/claude-agent-sdk": ">=0.3.233 <0.4",
+    "@openai/agents": ">=0.15.0 <0.16"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/claude-agent-sdk": {
+      "optional": true
+    },
+    "@openai/agents": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@anthropic-ai/claude-agent-sdk": "0.3.233",
+    "@openai/agents": "0.15.0",
     "@types/node": "^22.10.0",
     "typescript": "^5.6.3",
     "vitest": "^4.1.10",
-    "zod": "^3.25.0"
+    "zod": "^4.0.0"
   },
   "publishConfig": {
     "access": "public"

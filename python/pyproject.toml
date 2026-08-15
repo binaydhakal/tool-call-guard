@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tool-call-guard"
-version = "0.1.0"
+version = "0.2.0"
 description = "Deny-by-default policy gate for AI agent tool calls: allowlists, argument validation, rate caps, human-approval hooks, dry-run mode, and an audit trail. Framework-agnostic, zero dependencies."
 readme = "README.md"
 license = { text = "MIT" }
@@ -38,6 +38,14 @@ classifiers = [
   "Topic :: Security",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
   "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+openai = ["openai-agents>=0.20.0,<0.21"]
+anthropic = ["claude-agent-sdk>=0.2.139,<0.3"]
+integrations = [
+  "openai-agents>=0.20.0,<0.21",
+  "claude-agent-sdk>=0.2.139,<0.3",
 ]
 
 [project.urls]

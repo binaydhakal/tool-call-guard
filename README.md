@@ -35,7 +35,19 @@ Audit events share one schema across both implementations (JSONL sinks included)
 | Source | [`js/`](./js) | [`python/`](./python) |
 | Validation | zod-style `safeParse` or predicates | pydantic-style `model_validate` or callables |
 | Wrappers | `wrap`, `wrapTools` (AI SDK `{ execute }` shape) | `wrap`, `@guard.protect`, `wrap_tools` |
+| OpenAI Agents | `createOpenAIToolInputGuardrail` | `create_tool_input_guardrail` |
+| Claude Agent SDK | `createAnthropicHookMatcher` | `create_hook_matcher` |
 | Async | async `check`, async approvers | `check` / `acheck`, sync or async approvers |
+
+## Provider-native adapters
+
+Version 0.2 adds optional adapters for the OpenAI Agents SDK and Anthropic Claude Agent SDK in both runtimes. They translate provider tool-call events into the same deny-by-default policy decisions and audit records used by the framework-agnostic core.
+
+- **OpenAI Agents:** attach the adapter to a function tool's input guardrails. A denial can return safe model-visible content or trip the run immediately.
+- **Claude Agent SDK:** register the adapter as a `PreToolUse` hook. Denied calls return a structured SDK denial; allowed calls still pass through Claude's native permission system.
+- **Safe rollout:** dry-run mode records what the policy would block while allowing the provider SDK to continue normally.
+
+The core packages remain dependency-free. Install only the SDK adapter you use; see the [JavaScript](./js#provider-adapters) and [Python](./python#provider-adapters) examples.
 
 ## Design decisions worth knowing
 
