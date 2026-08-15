@@ -1,5 +1,6 @@
 node_modules/
 dist/
+release-dist/
 coverage/
 *.tgz
 __pycache__/
